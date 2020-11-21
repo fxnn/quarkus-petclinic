@@ -16,10 +16,9 @@
 package com.github.acme.quarkus.petclinic.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
+import java.time.LocalDate;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDate;
 
 /**
  * Simple JavaBean domain object representing a visit.
@@ -31,25 +30,23 @@ import java.time.LocalDate;
 @Table(name = "visits")
 public class Visit extends PanacheEntity {
 
-    @Column(name = "visit_date")
-    public LocalDate date;
+  @Column(name = "visit_date")
+  public LocalDate date;
 
-    @NotEmpty
-    @Column(name = "description")
-    public String description;
+  @NotEmpty
+  @Column(name = "description")
+  public String description;
 
-    @ManyToOne
-    @JoinColumn(name = "pet_id")
-    public Pet pet;
+  @ManyToOne
+  @JoinColumn(name = "pet_id")
+  public Pet pet;
 
-    /**
-     * Creates a new instance of Visit for the current date
-     */
-    public Visit() {
-        this.date = LocalDate.now();
-    }
+  /** Creates a new instance of Visit for the current date */
+  public Visit() {
+    this.date = LocalDate.now();
+  }
 
-    public LocalDate getDate() {
-        return date;
-    }
+  public LocalDate getDate() {
+    return date;
+  }
 }

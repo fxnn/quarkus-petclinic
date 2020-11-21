@@ -16,7 +16,6 @@
 package com.github.acme.quarkus.petclinic.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
@@ -29,12 +28,11 @@ import javax.validation.constraints.NotEmpty;
 @MappedSuperclass
 public class Person extends PanacheEntity {
 
-    @Column(name = "first_name")
-    @NotEmpty
-    public String firstName;
+  @Column(name = "first_name")
+  @NotEmpty
+  public String firstName;
 
-    @Column(name = "last_name")
-    @NotEmpty
-    public String lastName;
-
+  @Column(name = "last_name")
+  @NotEmpty
+  public String lastName;
 }

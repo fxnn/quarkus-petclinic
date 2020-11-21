@@ -15,13 +15,12 @@
  */
 package com.github.acme.quarkus.petclinic.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).
@@ -32,8 +31,7 @@ import java.util.List;
 @Table(name = "specialties")
 public class Specialty extends NamedEntity {
 
-    @ManyToMany(mappedBy = "specialties")
-    @JsonbTransient
-    public List<Vet> vets = new ArrayList<>();
-
+  @ManyToMany(mappedBy = "specialties")
+  @JsonbTransient
+  public List<Vet> vets = new ArrayList<>();
 }

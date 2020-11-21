@@ -15,9 +15,9 @@
  */
 package com.github.acme.quarkus.petclinic.model;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
+import javax.persistence.*;
 
 /**
  * Simple business object representing a pet.
@@ -30,29 +30,28 @@ import java.util.*;
 @Table(name = "pets")
 public class Pet extends NamedEntity {
 
-    @Column(name = "birth_date")
-    public LocalDate birthDate;
+  @Column(name = "birth_date")
+  public LocalDate birthDate;
 
-    @ManyToOne
-    @JoinColumn(name = "type_id")
-    public PetType type;
+  @ManyToOne
+  @JoinColumn(name = "type_id")
+  public PetType type;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    public Owner owner;
+  @ManyToOne
+  @JoinColumn(name = "owner_id")
+  public Owner owner;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
-    public Set<Visit> visits = new LinkedHashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
+  public Set<Visit> visits = new LinkedHashSet<>();
 
-    public List<Visit> getVisits() {
-        List<Visit> sortedVisits = new ArrayList<>(visits);
-        sortedVisits.sort(Comparator.comparing(Visit::getDate));
-        return Collections.unmodifiableList(sortedVisits);
-    }
+  public List<Visit> getVisits() {
+    List<Visit> sortedVisits = new ArrayList<>(visits);
+    sortedVisits.sort(Comparator.comparing(Visit::getDate));
+    return Collections.unmodifiableList(sortedVisits);
+  }
 
-    public void addVisit(Visit visit) {
-        this.visits.add(visit);
-        visit.pet = this;
-    }
-
+  public void addVisit(Visit visit) {
+    this.visits.add(visit);
+    visit.pet = this;
+  }
 }

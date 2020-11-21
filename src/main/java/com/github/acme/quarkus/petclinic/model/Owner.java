@@ -15,10 +15,10 @@
  */
 package com.github.acme.quarkus.petclinic.model;
 
+import java.util.*;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
-import java.util.*;
 
 /**
  * Simple JavaBean domain object representing an owner.
@@ -31,43 +31,45 @@ import java.util.*;
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
-    @Column(name = "address")
-    @NotEmpty
-    public String address;
+  @Column(name = "address")
+  @NotEmpty
+  public String address;
 
-    @Column(name = "city")
-    @NotEmpty
-    public String city;
+  @Column(name = "city")
+  @NotEmpty
+  public String city;
 
-    @Column(name = "telephone")
-    @NotEmpty
-    @Digits(fraction = 0, integer = 10)
-    public String telephone;
+  @Column(name = "telephone")
+  @NotEmpty
+  @Digits(fraction = 0, integer = 10)
+  public String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    public Set<Pet> pets = new HashSet<>();
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
+  public Set<Pet> pets = new HashSet<>();
 
-    public List<Pet> getPets() {
-        List<Pet> sortedPets = new ArrayList<>(pets);
-        sortedPets.sort(Comparator.comparing(NamedEntity::getName));
-        return Collections.unmodifiableList(sortedPets);
+  public List<Pet> getPets() {
+    List<Pet> sortedPets = new ArrayList<>(pets);
+    sortedPets.sort(Comparator.comparing(NamedEntity::getName));
+    return Collections.unmodifiableList(sortedPets);
+  }
+
+  public void addPet(Pet pet) {
+    if (pet.id == null) {
+      this.pets.add(pet);
     }
+    pet.owner = this;
+  }
 
-    public void addPet(Pet pet) {
-        if (pet.id == null) {
-            this.pets.add(pet);
-        }
-        pet.owner = this;
-    }
-
-    /**
-     * Return the Pet with the given name, or null if none found for this Owner.
-     *
-     * @param name to test
-     * @return true if pet name is already in use
-     */
-    public Pet getPetWithName(String name) {
-        return pets.stream().filter(pet -> name.toLowerCase().equals(pet.name.toLowerCase())).findFirst().orElse(null);
-    }
-
+  /**
+   * Return the Pet with the given name, or null if none found for this Owner.
+   *
+   * @param name to test
+   * @return true if pet name is already in use
+   */
+  public Pet getPetWithName(String name) {
+    return pets.stream()
+        .filter(pet -> name.toLowerCase().equals(pet.name.toLowerCase()))
+        .findFirst()
+        .orElse(null);
+  }
 }
