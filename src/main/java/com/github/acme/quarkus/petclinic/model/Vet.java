@@ -61,8 +61,6 @@ public class Vet extends Person {
   }
 
   public void addSpecialty(Specialty specialty) {
-    if (specialty.id == null) {
-      this.specialties.add(specialty);
-    }
+    this.specialties.add(specialty);
   }
 }
