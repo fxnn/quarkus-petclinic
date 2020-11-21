@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -28,7 +29,7 @@ import javax.persistence.Table;
  * @author Juergen Hoeller
  */
 @Entity
-@Table(name = "specialties")
+@Table(name = "specialties", indexes = @Index(name = "specialties_name", columnList = "name"))
 public class Specialty extends NamedEntity {
 
   @ManyToMany(mappedBy = "specialties")

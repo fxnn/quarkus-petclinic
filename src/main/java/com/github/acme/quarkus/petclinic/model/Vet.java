@@ -15,8 +15,19 @@
  */
 package com.github.acme.quarkus.petclinic.model;
 
-import java.util.*;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -28,7 +39,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Arjen Poutsma
  */
 @Entity
-@Table(name = "vets")
+@Table(name = "vets", indexes = @Index(name = "vets_last_name", columnList = "last_name"))
 public class Vet extends Person {
 
   @ManyToMany(fetch = FetchType.EAGER)

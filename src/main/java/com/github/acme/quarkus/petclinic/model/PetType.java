@@ -16,9 +16,10 @@
 package com.github.acme.quarkus.petclinic.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /** @author Juergen Hoeller Can be Cat, Dog, Hamster... */
 @Entity
-@Table(name = "types")
+@Table(name = "types", indexes = @Index(name = "types_name", columnList = "name"))
 public class PetType extends NamedEntity {}

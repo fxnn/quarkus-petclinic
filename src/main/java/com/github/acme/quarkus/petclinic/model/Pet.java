@@ -16,8 +16,22 @@
 package com.github.acme.quarkus.petclinic.model;
 
 import java.time.LocalDate;
-import java.util.*;
-import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Simple business object representing a pet.
@@ -27,18 +41,20 @@ import javax.persistence.*;
  * @author Sam Brannen
  */
 @Entity
-@Table(name = "pets")
+@Table(name = "pets", indexes = @Index(name = "pets_name", columnList = "name"))
 public class Pet extends NamedEntity {
 
   @Column(name = "birth_date")
   public LocalDate birthDate;
 
+  @NotNull
   @ManyToOne
-  @JoinColumn(name = "type_id")
+  @JoinColumn(name = "type_id", nullable = false)
   public PetType type;
 
+  @NotNull
   @ManyToOne
-  @JoinColumn(name = "owner_id")
+  @JoinColumn(name = "owner_id", nullable = false)
   public Owner owner;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
