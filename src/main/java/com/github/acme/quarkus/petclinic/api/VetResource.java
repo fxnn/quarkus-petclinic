@@ -1,4 +1,4 @@
-package com.github.acme.quarkus.petclinic.web.resource;
+package com.github.acme.quarkus.petclinic.api;
 
 import com.github.acme.quarkus.petclinic.model.Vet;
 import com.github.acme.quarkus.petclinic.repository.VetRepository;
@@ -20,7 +20,7 @@ public class VetResource {
   }
 
   @GET
-  @Path("/name/{name}")
+  @Path("/by-name/{name}")
   public Vet findByName(@PathParam("name") String name) {
     return vetRepository.findByName(name);
   }
