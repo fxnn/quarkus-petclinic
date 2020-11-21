@@ -1,8 +1,8 @@
 package com.github.acme.quarkus.petclinic.web.resource;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class NativeVetResourceIT extends VetResourceTest {
 
   private static final String JSON_HENRY_STEVENS =
